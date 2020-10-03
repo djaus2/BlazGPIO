@@ -1,0 +1,48 @@
+@page "/getcputemperature"
+@using BlazorGPIO.Shared
+@inject HttpClient Http
+
+<h1>Get CPU Core Temperature of Service Device</h1>
+
+<p>This omly works for a Linux Host.</p>
+
+@if (Temperature == 100)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Temp. (C)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Temperature</td>
+            </tr>
+            <tr>
+                <td><i>Nb:</i> -1 means the service device was unable to read its Core Temperature.</td>
+            </tr>
+            <tr>
+                <td><button class="btn btn-primary" @onclick="OnClick">Get Again</button></td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+@code {
+    double Temperature=100;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await OnClick();
+    }
+
+    protected async Task OnClick()
+    {
+        Temperature = await Http.GetFromJsonAsync<double>("GPIO");
+    }
+
+}

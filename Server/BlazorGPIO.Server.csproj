@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>76a95903-a25d-4dd5-8603-aa2df37223f8</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Client\BlazorGPIO.Client.csproj" />
+    <ProjectReference Include="..\Shared\BlazorGPIO.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Device.Gpio" Version="1.0.0" />
+    <PackageReference Include="Iot.Device.Bindings" Version="1.0.0" />
+  </ItemGroup>
+
+
+</Project>

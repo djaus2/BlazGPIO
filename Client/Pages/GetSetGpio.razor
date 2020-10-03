@@ -1,0 +1,96 @@
+﻿@page "/getsetgpio"
+@using System.Device.Gpio
+@using BlazorGPIO.Shared
+@inject HttpClient Http
+
+
+
+<h1>RPi GPIO via .NET Standard Class</h1>
+
+<h1>Via Server</h1>
+<p>GPIO via Server: @gpio</p>
+<p>These should work with RPi</p>
+<button class="btn btn-primary" @onclick="(() => GPIOfromSharedSvr(true))">Set Pin</button>
+<button class="btn btn-primary" @onclick="(() => GPIOfromSharedSvr(false))">Clear Pin</button>
+
+
+<h1>Direct From Client</h1>
+<p>GPIO Direct: @gpiodirect</p>
+<p> These should always fail.</p>
+<button class="btn btn-primary" @onclick="(() => GPIOfromSharedDirect(true))">Set Pin</button>
+<button class="btn btn-primary" @onclick="(() => GPIOfromSharedDirect(true))">Set Pin</button>
+
+
+
+
+@code {
+        private int currentCount = 0;
+        double temperature;
+        string gpio = "???";
+        string gpiodirect = "Direct";
+
+        bool start = false;
+
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+            if (firstRender)
+            {
+            }
+        }
+
+        protected override async Task OnInitializedAsync()
+        {
+            await base.OnInitializedAsync();
+        }
+
+        //private void IncrementCount()
+        //{
+        //    gpio = "Checking";
+
+        //    currentCount++;
+        //    System.Diagnostics.Debug.WriteLine(currentCount);
+        //    try
+        //    {
+        //        System.Diagnostics.Debug.WriteLine("err0");
+        //        System.Device.Gpio.GpioController controller = new System.Device.Gpio.GpioController(
+        //            System.Device.Gpio.PinNumberingScheme.Board);
+        //        gpio += " OK1";
+        //        var pin = 37;
+
+        //        System.Diagnostics.Debug.WriteLine("err1");
+        //        controller.OpenPin(pin, System.Device.Gpio.PinMode.Input);
+        //        gpio += " OK2";
+        //        try
+        //        {
+        //            gpio += " Trying";
+        //            System.Device.Gpio.PinValue val = controller.Read(pin);
+        //            System.Diagnostics.Debug.WriteLine($"{val}");
+        //            gpio += " TryiedOK";
+        //        }
+        //        finally
+        //        {
+        //            controller.ClosePin(pin);
+        //            gpio += " Done";
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        System.Diagnostics.Debug.WriteLine(ex.Message);
+        //        gpio += " Failed";
+        //    }
+
+
+        //}
+
+        void GPIOfromSharedDirect(bool state)
+        {
+            gpiodirect = BlazorGPIO.Shared.RaspberryPiDriverGPIOTester.InputPullResistorsWork(state);
+        }
+
+        async Task GPIOfromSharedSvr(bool state)
+        {
+            gpio = await Http.GetStringAsync($"GPIO/{state}");
+        }
+
+}

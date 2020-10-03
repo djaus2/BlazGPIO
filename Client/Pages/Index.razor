@@ -1,0 +1,42 @@
+﻿@page "/"
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+<h1>Testing GPIO and Devices from Blazor</h1>
+
+<h2>Pages</h2>
+<ul>
+    <li>All calls fail gracefully if hardware not available.</li>
+    <li>
+        Get CPU Core Temperature
+        <ul>
+            <li>Gets the CPU Core temperature of a RPi when running Denbian/Linux</li>
+            <li>Nb: Does not work with Windows 10 IoT-Core</li>
+            <li>Uses the CpuTemperature Device form IoT.Devices.Bindings</li>
+            <li>Call to Device is from .ASP.NET Core <i>(.Net Core functionality)</i></li>
+        </ul>
+    </li>
+    <li>
+        Get Set GPIO Pins
+        <ul>
+            <li>Sets or clears a RPi pin</li>
+            <li>Does/should work with Windows 10 IoT-Core as well</li>
+            <li>Uses System.Device.GPIO directly</li>
+            <li>System.Device.GPIO is a .NET Standard library</li>
+            <li>Call is from the Shared Library <i>(Which is also .NET Standard)</i></li>
+            <li>Nb: Call can only be via service. Call direct from WASM Client always fails.</li>
+        </ul>
+     </li>
+</ul>.
+
+
+
+@code {
+
+/*    string name = "Hello";
+//Will use this an another app.
+    protected override async Task OnInitializedAsync()
+    {
+        await localStorage.SetItemAsync("name", "John Smith");
+        name += await localStorage.GetItemAsync<string>("name");
+    }*/
+}
