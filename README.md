@@ -4,7 +4,7 @@ Test [dotnet/iot](https://github.com/dotnet/iot) functionality in a Blazor App.
 **Blazor WebAssembly app**  
 Demonstrates that a Blazor WASM Client can't call hardware directly.  
 Can call it via the service though.  
-Focus is upon GPIO functionality and BIndings Devices functionality.
+Focus is upon GPIO functionality and Bindings Devices functionality.
 
 ## Pages
 
